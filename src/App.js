@@ -1,29 +1,20 @@
-// src/App.js
-
-import React from "react";
-import NavBar from "./components/NavBar";
-
-// New - import the React Router components, and the Profile page component
-import { Router, Route, Switch } from "react-router-dom";
-import Profile from "./components/Profile";
-import Lobby from "./components/Lobby";
-import history from "./utils/history";
+import React, { useEffect } from 'react';
+import Login from './components/Login/Login';
+import useAuth from './hooks/auth';
 
 function App() {
+  const { identity, logout } = useAuth();
+
+  useEffect(() => {
+    console.log({ identity });
+  });
+
   return (
-    <div className="App">
-      {/* Don't forget to include the history module */}
-      <Router history={history}>
-        <header>
-          <NavBar />
-        </header>
-        <Lobby />
-        <Switch>
-          <Route path="/" exact />
-          <Route path="/profile" component={Profile} />
-        </Switch>
-      </Router>
-    </div>
+    <>
+      {identity.username}
+      {!identity.token && <Login />}
+      {identity.token && <button type="button" onClick={logout}>Logout</button>}
+    </> 
   );
 }
 

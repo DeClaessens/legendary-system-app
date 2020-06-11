@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import Login from './components/Login/Login';
 import useAuth from './hooks/auth';
+import LoginForm from './molecules/LoginForm';
 
 function App() {
-  const { identity, logout } = useAuth();
+  const { identity, login, logout } = useAuth();
 
   useEffect(() => {
     console.log({ identity });
@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       {identity.username}
-      {!identity.token && <Login />}
+      {!identity.token && <LoginForm onLogin={(email, password) => login(email, password)} />}
       {identity.token && <button type="button" onClick={logout}>Logout</button>}
     </> 
   );

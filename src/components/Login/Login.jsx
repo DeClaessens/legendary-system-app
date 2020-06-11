@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
-import axios from 'axios';
 import useAuth from '../../hooks/auth';
+import TextInput from '../../atoms/TextInput';
 
 const Login = ({isRegistering}) => {
   const {login, register} = useAuth();
@@ -20,7 +20,7 @@ const Login = ({isRegistering}) => {
     <div>
       <h1>{isRegistering ? 'Register' : 'Log In'}</h1>
       <input type="email" value={email} name="email" onChange={(e) => setEmail(e.target.value)} />
-      {isRegistering && <input type="text" value={username} name="username" onChange={(e) => setUsername(e.target.value)} />}
+      {isRegistering && <TextInput type="text" value={username} name="username" onChange={(e) => setUsername(e.target.value)} />}
       <input type="password" value={password} name="password" onChange={(e) => setPassword(e.target.value)} />
       {isRegistering && <button type="button" onClick={handleRegister}>Register</button>}
       {!isRegistering && <button type="button" onClick={handleLogin}>Login</button>}

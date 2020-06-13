@@ -1,4 +1,4 @@
-import React, { createContext, useMemo, useState } from 'react';
+import React, { useEffect, createContext, useMemo, useState } from 'react';
 
 const IdentityContext = createContext({
   current: undefined,
@@ -11,6 +11,21 @@ export function AuthProvider(props) {
     email: '',
     token: '',
   });
+
+  useEffect(() => {
+    const profile = localStorage.getItem('profile');
+
+    
+    if (profile) {
+      const p = JSON.parse(profile);
+      setIdentity({
+        username: p.username,
+        email: p.email,
+        token: p.token,
+      });
+    }
+
+  }, []);
 
   const identityContextValue = useMemo(
     () => ({
